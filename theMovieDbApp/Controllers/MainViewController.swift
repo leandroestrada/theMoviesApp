@@ -22,7 +22,6 @@ class MainViewController: UIViewController {
         // Do any additional setup after loading the view.
         moviesTableView.delegate = self
         moviesTableView.dataSource = self
-         
     }
     
     func loadData(){
