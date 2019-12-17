@@ -19,8 +19,20 @@ class FilmDetailViewController: UIViewController {
         super.viewDidLoad()
         print(theMovie?.original_title)
         loadData()
+       
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.navigationBar.backgroundColor = .clear
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
 
-        // Do any additional setup after loading the view.
+        // Restore the navigation bar to default
+        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        navigationController?.navigationBar.shadowImage = nil
     }
     
     
@@ -31,15 +43,8 @@ class FilmDetailViewController: UIViewController {
         }
         navigationController?.navigationBar.prefersLargeTitles = false
         
-        
     }
-    override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            navigationController?.setNavigationBarHidden(false, animated: false)
-            if let topItem = navigationController?.navigationBar.topItem {
-                   topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: nil, action: nil)
-            }
-        }
+   
 
 
     

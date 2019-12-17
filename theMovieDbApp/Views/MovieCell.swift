@@ -17,6 +17,11 @@ class MovieCell: UITableViewCell {
         }
     }
     @IBOutlet weak var movieTitle: UILabel!
+    @IBOutlet weak var movieRatingBackgroundView: UIView!{
+        didSet{
+            movieRatingBackgroundView.layer.cornerRadius = 10
+        }
+    }
     @IBOutlet weak var movieRating: UILabel!
     @IBOutlet weak var movieDescription: UILabel!
     @IBOutlet weak var movieYear: UILabel!
