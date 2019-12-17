@@ -11,9 +11,6 @@ import ObjectMapper
 
 class Movie: Mappable{
     
-    
-    
-   
     var popularity: Double = 0.0
     var vote_count: Int = 0
     var video: Bool = false

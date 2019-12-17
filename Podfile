@@ -8,6 +8,7 @@ target 'theMovieDbApp' do
   # Pods for theMovieDbApp
 
   pod 'AlamofireObjectMapper', '~> 5.2'
+  pod 'Kingfisher', '~> 5.0'
 
   target 'theMovieDbAppTests' do
     inherit! :search_paths
