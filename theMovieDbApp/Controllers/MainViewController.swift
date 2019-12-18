@@ -12,8 +12,11 @@ import Kingfisher
 class MainViewController: UIViewController {
 
     @IBOutlet weak var moviesTableView: UITableView!
+    @IBOutlet weak var theSearchBar: UISearchBar!
     
     var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
+    var searchActive: Bool = false
         
     
     override func viewDidLoad() {
@@ -22,6 +25,7 @@ class MainViewController: UIViewController {
         // Do any additional setup after loading the view.
         moviesTableView.delegate = self
         moviesTableView.dataSource = self
+        theSearchBar.delegate = self
     }
     
     func loadData(){
@@ -32,7 +36,13 @@ class MainViewController: UIViewController {
            
         }
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FilmDetailSegue"{
             if let nextViewController = segue.destination as? FilmDetailViewController {
@@ -57,6 +67,9 @@ extension MainViewController: UITableViewDelegate{
 extension MainViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchActive{
+            return filteredMovies.count
+        }
         return movies.count
     }
     
@@ -67,7 +80,13 @@ extension MainViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
-        let movie = movies[indexPath.row]
+        let movie: Movie
+        if searchActive{
+            movie = filteredMovies[indexPath.row]
+        }else{
+            movie = movies[indexPath.row]
+        }
+        //let movie = movies[indexPath.row]
         cell.movieTitle.text = movie.original_title
         cell.movieDescription.text = movie.overview
         cell.movieRating.text = "\(movie.vote_average)"
@@ -77,6 +96,22 @@ extension MainViewController: UITableViewDataSource{
         return cell
     }
     
+}
+
+extension MainViewController: UISearchBarDelegate {
+    
+    func searchBar(_: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            self.filteredMovies = self.movies.filter { (movieList) -> Bool in
+                (movieList.original_title.lowercased().contains(searchText.lowercased()))
+            }
+            self.searchActive = true
+        } else {
+            self.filteredMovies = self.movies
+        }
+        
+        self.moviesTableView.reloadData()
+    }
 }
 
 
