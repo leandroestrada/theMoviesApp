@@ -8,12 +8,17 @@
 
 import UIKit
 
-class FilmDetailViewController: UIViewController {
+class FilmDetailViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
 
     @IBOutlet weak var castTest: UIImageView!
-    
+    @IBOutlet weak var movieRatingView:     UIView!{didSet{
+        movieRatingView.layer.cornerRadius = 10
+        }
+    }
+
     var theMovie: Movie?
+    var seldonItems: [String] = ["Apples", "Threes", "Oranges"]
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,22 +50,15 @@ class FilmDetailViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         
     }
-   
-
-
     
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return seldonItems.count
     }
-    */
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! SecondScreenCollectionViewCell
+        cell.dataLabel.text = seldonItems[indexPath.row]
+        return cell
+    }
 
 }
