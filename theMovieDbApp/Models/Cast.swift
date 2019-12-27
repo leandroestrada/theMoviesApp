@@ -15,7 +15,6 @@ class Cast: Mappable{
     var name: String = ""
     var profilePath: String = ""
     
-    
     required convenience init?(map: Map) {
         self.init()
     }
@@ -27,7 +26,6 @@ class Cast: Mappable{
     }
     
 }
-
 
 class CastBase: Mappable{
     

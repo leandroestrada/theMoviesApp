@@ -53,15 +53,12 @@ class MainViewController: UIViewController {
     
 }
 
-
 extension MainViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = movies[indexPath.row]
         self.performSegue(withIdentifier: "FilmDetailSegue", sender: movie)
-        
     }
-    
 }
 
 extension MainViewController: UITableViewDataSource{
