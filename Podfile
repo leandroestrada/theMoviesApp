@@ -9,6 +9,7 @@ target 'theMovieDbApp' do
 
   pod 'AlamofireObjectMapper', '~> 5.2'
   pod 'Kingfisher', '~> 5.0'
+   pod 'FSPagerView'
 
   target 'theMovieDbAppTests' do
     inherit! :search_paths

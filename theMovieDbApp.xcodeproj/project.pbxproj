@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		303AC9FF2389BFCF00D80093 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AC9FE2389BFCF00D80093 /* MainViewController.swift */; };
-		305189EC23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305189EB23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift */; };
+		3065313E23BBD4E90021DE69 /* CastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3065313D23BBD4E90021DE69 /* CastCell.swift */; };
 		309C0B5D2389B13F0052A25B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309C0B5C2389B13F0052A25B /* AppDelegate.swift */; };
 		309C0B5F2389B13F0052A25B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309C0B5E2389B13F0052A25B /* SceneDelegate.swift */; };
 		309C0B642389B13F0052A25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309C0B622389B13F0052A25B /* Main.storyboard */; };
@@ -39,7 +39,7 @@
 /* Begin PBXFileReference section */
 		16DA1AFC6EAB659F4A99D3E6 /* Pods-theMovieDbAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-theMovieDbAppTests.debug.xcconfig"; path = "Target Support Files/Pods-theMovieDbAppTests/Pods-theMovieDbAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		303AC9FE2389BFCF00D80093 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		305189EB23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreenCollectionViewCell.swift; sourceTree = "<group>"; };
+		3065313D23BBD4E90021DE69 /* CastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCell.swift; sourceTree = "<group>"; };
 		309C0B592389B13F0052A25B /* theMovieDbApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = theMovieDbApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		309C0B5C2389B13F0052A25B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		309C0B5E2389B13F0052A25B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				30A7455D2389CBD400A5002C /* MovieCell.swift */,
-				305189EB23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift */,
+				3065313D23BBD4E90021DE69 /* CastCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -367,9 +367,9 @@
 				30A7455E2389CBD400A5002C /* MovieCell.swift in Sources */,
 				30B70417239C5B7900826A27 /* Cast.swift in Sources */,
 				309C0B832389B28D0052A25B /* NetworkManager.swift in Sources */,
+				3065313E23BBD4E90021DE69 /* CastCell.swift in Sources */,
 				309C0B862389B6790052A25B /* MovieBase.swift in Sources */,
 				30B70415239C53D200826A27 /* FilmDetailViewController.swift in Sources */,
-				305189EC23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift in Sources */,
 				309C0B5D2389B13F0052A25B /* AppDelegate.swift in Sources */,
 				303AC9FF2389BFCF00D80093 /* MainViewController.swift in Sources */,
 				309C0B5F2389B13F0052A25B /* SceneDelegate.swift in Sources */,
