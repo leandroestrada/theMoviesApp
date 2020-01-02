@@ -17,8 +17,12 @@ class FilmDetailViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var movieTitleFilmDetailView: UILabel!
     
+    @IBOutlet weak var movieRatingFilmDetailView: UILabel!
     @IBOutlet weak var movieBackgroundPicture: UIImageView!
+    
+    @IBOutlet weak var filmLengthLbl: UILabel!
     
     var minhasimagens: [String] = ["stones","stones","stones","stones"]
     
@@ -83,8 +87,10 @@ class FilmDetailViewController: UIViewController {
     func loadPoster(posterPath: String){
         
         self.moviePicture.loadImage(imageUrl: theMovie!.poster_path)
-     self.movieBackgroundPicture.loadImage(imageUrl: theMovie!.backdrop_path)
+        self.movieBackgroundPicture.loadImage(imageUrl: theMovie!.backdrop_path)
         self.movieDescriptionFilmDetailView.text = theMovie?.overview
+        self.movieTitleFilmDetailView.text = theMovie?.original_title
+        self.movieRatingFilmDetailView.text = "\(theMovie!.vote_average)"
         
     }
     
