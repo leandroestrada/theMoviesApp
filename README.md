@@ -1,5 +1,5 @@
 # theMoviesApp
-An iOS showing a list of the top rated movies with their main info and a search bar.
+An iOS app showing a list of the Top Rated Movies with their main info and a search bar.
 
 Pods used: 
 -AlamofireObjectMapper;
@@ -8,6 +8,6 @@ Pods used:
 Working on:
 -Layout not completly responsive yet, use iPhone 11 for better viewing;
 -Length on FilmDetailViewView;
--Pod FSPagerView for slide between pictures on FilmDetailView
+-Pod FSPagerView for slide between pictures on FilmDetailView.
 
 Thanks!
