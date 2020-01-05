@@ -8,15 +8,32 @@
 
 import UIKit
 
+
 class FilmDetailViewController: UIViewController {
     
-
-    @IBOutlet weak var castTest: UIImageView!
+    var imgArr: [Images] = []
+    
+    @IBOutlet weak var movieTitleFilmDetailView: UILabel!
+    
+    @IBOutlet weak var movieRatingFilmDetailView: UILabel!
+    @IBOutlet weak var movieBackgroundPicture: UIImageView!
+    
+    @IBOutlet weak var filmLengthLbl: UILabel!
+    
+    
+    @IBOutlet weak var iCarouselFilmDetailView: iCarousel!
+    
+    
+    var castArray: [Cast] = []
+    
+    
+    @IBOutlet weak var movieDescriptionFilmDetailView: UILabel!
     @IBOutlet weak var movieRatingView: UIView!{
         didSet{
-        movieRatingView.layer.cornerRadius = 10
+            movieRatingView.layer.cornerRadius = 10
         }
     }
+    
     @IBOutlet weak var moviePicture: UIImageView!
     var theMovie: Movie?
     var seldonItems: [String] = ["Apples", "Threes", "Oranges","Abacaxi", "fhdsafja;dklfjakldfklassdkfas", "macds.af"]
@@ -31,7 +48,7 @@ class FilmDetailViewController: UIViewController {
         super.viewDidLoad()
         print(theMovie?.original_title)
         loadData()
-       
+        loadPoster(posterPath: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -40,12 +57,20 @@ class FilmDetailViewController: UIViewController {
         
         
         collectionViewCast.reloadData()
+        
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        self.collectionViewCast.collectionViewLayout = layout
+        
+        iCarouselFilmDetailView.type = .linear
+        iCarouselFilmDetailView.contentMode = .scaleAspectFit
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
         // Restore the navigation bar to default
         navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         navigationController?.navigationBar.shadowImage = nil
@@ -53,46 +78,99 @@ class FilmDetailViewController: UIViewController {
     
     func loadPoster(posterPath: String){
         
+        self.moviePicture.loadImage(imageUrl: theMovie!.poster_path)
+        self.movieBackgroundPicture.loadImage(imageUrl: theMovie!.backdrop_path)
+        self.movieDescriptionFilmDetailView.text = theMovie?.overview
+        self.movieTitleFilmDetailView.text = theMovie?.original_title
+        self.movieRatingFilmDetailView.text = "\(theMovie!.vote_average)"
+        //        self.filmLengthLbl.text = ""
+        loadBackdropImages()
     }
     
     
     func loadData(){
         NetworkManager.shared.fetchCast(id: theMovie!.id){ castBase in
             print(castBase)
-            self.castTest.loadImage(imageUrl: castBase.cast[0].profilePath)
-            self.moviePicture.loadImage(imageUrl: castBase.cast[1].profilePath)
+            self.castArray = castBase.cast
+            self.collectionViewCast.reloadData()
+            NetworkManager.shared.fetchMovieDetails(movieId: self.theMovie!.id){runtime in
+                print(runtime.runtime)
+                let lenght = Utils.shared.minutesToHoursMinutes(minutes: runtime.runtime)
+                self.filmLengthLbl.text = "Duração \(lenght.hours)h \(lenght.leftMinutes)min."
+            }
             
         }
         navigationController?.navigationBar.prefersLargeTitles = false
     }
-
+    
+    func loadBackdropImages(){
+        NetworkManager.shared.fetchImages(movieId: theMovie!.id){ imagesBase in
+            if imagesBase.backdrops.count == 0 {
+                let image = Images()
+                image.filePath = self.theMovie!.backdrop_path
+                self.imgArr.append(image)
+            }else{
+                self.imgArr = imagesBase.backdrops
+            }
+            self.iCarouselFilmDetailView.reloadData()
+        }
+    }
+    
 }
 
 extension FilmDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate/*, UICollectionViewDelegateFlowLayout*/{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return seldonItems.count
+        
+        if collectionView == collectionViewCast{
+            return castArray.count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! SecondScreenCollectionViewCell
-        cell.dataLabel.text = seldonItems[indexPath.row]
-        return cell
+        
+        if collectionView == collectionViewCast {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "castCell", for: indexPath) as! CastCell
+            let cast = castArray[indexPath.row]
+            cell.characterNameLbl.text = cast.character
+            cell.actorNameLbl.text = cast.name
+            if cast.profilePath != "" {
+                cell.castImage.loadImage(imageUrl: cast.profilePath)
+            } else {
+                cell.castImage.image = UIImage(named: "user ")
+            }
+            
+            return cell
+        }
+        return UICollectionViewCell()
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {//size of your item for screen sizes
-//           let wsize = UIScreen.main.bounds.size.width
-//           switch(wsize){
-//           case 414:
-//               return CGSize(width: 110, height: 110)
-//           case 375:
-//               return CGSize(width: 100, height: 100)
-//           case 320:
-//               return CGSize(width: 90, height: 90)
-//           default:
-//               return CGSize(width: 100, height: 100)
-//           }
-//       }
     
+}
+
+extension FilmDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 150.0, height: 150)
+    }
+}
+
+extension FilmDetailViewController: iCarouselDelegate, iCarouselDataSource{
     
+    func numberOfItems(in carousel: iCarousel) -> Int {
+        return imgArr.count
+    }
+    
+    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
+        var imageView: UIImageView!
+        if view == nil{
+            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100 , height: UIScreen.main.bounds.height - 200))
+            imageView.contentMode = .scaleAspectFit
+        }else{
+            imageView = view as? UIImageView
+        }
+        
+        imageView.loadImage(imageUrl: imgArr[index].filePath)
+        return imageView
+    }
 }

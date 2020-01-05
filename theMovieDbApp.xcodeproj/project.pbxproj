@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		303AC9FF2389BFCF00D80093 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303AC9FE2389BFCF00D80093 /* MainViewController.swift */; };
-		305189EC23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305189EB23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift */; };
+		3065313E23BBD4E90021DE69 /* CastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3065313D23BBD4E90021DE69 /* CastCell.swift */; };
+		3087C14F23C11D9600D116DA /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3087C14E23C11D9600D116DA /* iCarousel.m */; };
+		3087C15123C14B4600D116DA /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3087C15023C14B4600D116DA /* MovieDetails.swift */; };
+		3087C15423C1517000D116DA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3087C15323C1517000D116DA /* Utils.swift */; };
+		3087C15623C154D800D116DA /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3087C15523C154D800D116DA /* Images.swift */; };
 		309C0B5D2389B13F0052A25B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309C0B5C2389B13F0052A25B /* AppDelegate.swift */; };
 		309C0B5F2389B13F0052A25B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309C0B5E2389B13F0052A25B /* SceneDelegate.swift */; };
 		309C0B642389B13F0052A25B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309C0B622389B13F0052A25B /* Main.storyboard */; };
@@ -39,7 +43,13 @@
 /* Begin PBXFileReference section */
 		16DA1AFC6EAB659F4A99D3E6 /* Pods-theMovieDbAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-theMovieDbAppTests.debug.xcconfig"; path = "Target Support Files/Pods-theMovieDbAppTests/Pods-theMovieDbAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		303AC9FE2389BFCF00D80093 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		305189EB23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreenCollectionViewCell.swift; sourceTree = "<group>"; };
+		3065313D23BBD4E90021DE69 /* CastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCell.swift; sourceTree = "<group>"; };
+		3087C14C23C11D9500D116DA /* theMovieDbApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "theMovieDbApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		3087C14D23C11D9600D116DA /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		3087C14E23C11D9600D116DA /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		3087C15023C14B4600D116DA /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
+		3087C15323C1517000D116DA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		3087C15523C154D800D116DA /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		309C0B592389B13F0052A25B /* theMovieDbApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = theMovieDbApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		309C0B5C2389B13F0052A25B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		309C0B5E2389B13F0052A25B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +103,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3087C15223C1515100D116DA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3087C15323C1517000D116DA /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		309C0B502389B13E0052A25B = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +134,7 @@
 		309C0B5B2389B13F0052A25B /* theMovieDbApp */ = {
 			isa = PBXGroup;
 			children = (
+				3087C15223C1515100D116DA /* Utils */,
 				30B70418239C643A00826A27 /* Extensions */,
 				309C0B812389B21E0052A25B /* Network */,
 				309C0B802389B2180052A25B /* Views */,
@@ -146,6 +165,8 @@
 				309C0B852389B6790052A25B /* MovieBase.swift */,
 				309C0B872389B6850052A25B /* Movie.swift */,
 				30B70416239C5B7900826A27 /* Cast.swift */,
+				3087C15023C14B4600D116DA /* MovieDetails.swift */,
+				3087C15523C154D800D116DA /* Images.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,7 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				30A7455D2389CBD400A5002C /* MovieCell.swift */,
-				305189EB23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift */,
+				3065313D23BBD4E90021DE69 /* CastCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,7 +200,10 @@
 		30B70418239C643A00826A27 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3087C14D23C11D9600D116DA /* iCarousel.h */,
+				3087C14E23C11D9600D116DA /* iCarousel.m */,
 				30B70419239C649E00826A27 /* UIImageViewExtension.swift */,
+				3087C14C23C11D9500D116DA /* theMovieDbApp-Bridging-Header.h */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -248,6 +272,7 @@
 				TargetAttributes = {
 					309C0B582389B13F0052A25B = {
 						CreatedOnToolsVersion = 11.1;
+						LastSwiftMigration = 1130;
 					};
 					309C0B6E2389B1410052A25B = {
 						CreatedOnToolsVersion = 11.1;
@@ -366,12 +391,16 @@
 				30B7041A239C649E00826A27 /* UIImageViewExtension.swift in Sources */,
 				30A7455E2389CBD400A5002C /* MovieCell.swift in Sources */,
 				30B70417239C5B7900826A27 /* Cast.swift in Sources */,
+				3087C15423C1517000D116DA /* Utils.swift in Sources */,
 				309C0B832389B28D0052A25B /* NetworkManager.swift in Sources */,
+				3087C15123C14B4600D116DA /* MovieDetails.swift in Sources */,
+				3065313E23BBD4E90021DE69 /* CastCell.swift in Sources */,
+				3087C15623C154D800D116DA /* Images.swift in Sources */,
 				309C0B862389B6790052A25B /* MovieBase.swift in Sources */,
 				30B70415239C53D200826A27 /* FilmDetailViewController.swift in Sources */,
-				305189EC23AD4FF200E40B60 /* SecondScreenCollectionViewCell.swift in Sources */,
 				309C0B5D2389B13F0052A25B /* AppDelegate.swift in Sources */,
 				303AC9FF2389BFCF00D80093 /* MainViewController.swift in Sources */,
+				3087C14F23C11D9600D116DA /* iCarousel.m in Sources */,
 				309C0B5F2389B13F0052A25B /* SceneDelegate.swift in Sources */,
 				309C0B882389B6850052A25B /* Movie.swift in Sources */,
 			);
@@ -534,6 +563,7 @@
 			baseConfigurationReference = 947458B963B6545910A70D64 /* Pods-theMovieDbApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5F3426985K;
 				INFOPLIST_FILE = theMovieDbApp/Info.plist;
@@ -543,6 +573,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.leandro.theMovieDbApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "theMovieDbApp/Extensions/theMovieDbApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -553,6 +585,7 @@
 			baseConfigurationReference = 6ED9B47FA5066AE7BF7531A3 /* Pods-theMovieDbApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5F3426985K;
 				INFOPLIST_FILE = theMovieDbApp/Info.plist;
@@ -562,6 +595,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.leandro.theMovieDbApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "theMovieDbApp/Extensions/theMovieDbApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
