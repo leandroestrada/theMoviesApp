@@ -7,15 +7,11 @@
 //
 
 import UIKit
-import FSPagerView
+
 
 class FilmDetailViewController: UIViewController {
     
-    @IBOutlet weak var pagerView: FSPagerView! {
-        didSet {
-            self.pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
-        }
-    }
+    var imgArr: [Images] = []
     
     @IBOutlet weak var movieTitleFilmDetailView: UILabel!
     
@@ -24,7 +20,9 @@ class FilmDetailViewController: UIViewController {
     
     @IBOutlet weak var filmLengthLbl: UILabel!
     
-    var minhasimagens: [String] = ["stones","stones","stones","stones"]
+    
+    @IBOutlet weak var iCarouselFilmDetailView: iCarousel!
+    
     
     var castArray: [Cast] = []
     
@@ -60,19 +58,13 @@ class FilmDetailViewController: UIViewController {
         
         collectionViewCast.reloadData()
         
-        //        // Create a pager view
-        //        let pagerView = FSPagerView(frame: frame1)
-        //        pagerView.dataSource = self
-        //        pagerView.delegate = self
-        //        pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
-        //        self.view.addSubview(pagerView)
-        //        // Create a page control
-        //        let pageControl = FSPageControl(frame: frame2)
-        //        self.view.addSubview(pageControl)
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         self.collectionViewCast.collectionViewLayout = layout
+        
+        iCarouselFilmDetailView.type = .linear
+        iCarouselFilmDetailView.contentMode = .scaleAspectFit
     }
     
     
@@ -91,7 +83,8 @@ class FilmDetailViewController: UIViewController {
         self.movieDescriptionFilmDetailView.text = theMovie?.overview
         self.movieTitleFilmDetailView.text = theMovie?.original_title
         self.movieRatingFilmDetailView.text = "\(theMovie!.vote_average)"
-        
+        //        self.filmLengthLbl.text = ""
+        loadBackdropImages()
     }
     
     
@@ -100,10 +93,27 @@ class FilmDetailViewController: UIViewController {
             print(castBase)
             self.castArray = castBase.cast
             self.collectionViewCast.reloadData()
-            
+            NetworkManager.shared.fetchMovieDetails(movieId: self.theMovie!.id){runtime in
+                print(runtime.runtime)
+                let lenght = Utils.shared.minutesToHoursMinutes(minutes: runtime.runtime)
+                self.filmLengthLbl.text = "Duração \(lenght.hours)h \(lenght.leftMinutes)min."
+            }
             
         }
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    func loadBackdropImages(){
+        NetworkManager.shared.fetchImages(movieId: theMovie!.id){ imagesBase in
+            if imagesBase.backdrops.count == 0 {
+                let image = Images()
+                image.filePath = self.theMovie!.backdrop_path
+                self.imgArr.append(image)
+            }else{
+                self.imgArr = imagesBase.backdrops
+            }
+            self.iCarouselFilmDetailView.reloadData()
+        }
     }
     
 }
@@ -113,7 +123,7 @@ extension FilmDetailViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == collectionViewCast{
-        return castArray.count
+            return castArray.count
         }
         return 0
     }
@@ -121,47 +131,19 @@ extension FilmDetailViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == collectionViewCast {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "castCell", for: indexPath) as! CastCell
-        let cast = castArray[indexPath.row]
-        cell.characterNameLbl.text = cast.character
-        cell.actorNameLbl.text = cast.name
-        cell.castImage.loadImage(imageUrl: cast.profilePath)
-        
-        return cell
-    }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "castCell", for: indexPath) as! CastCell
+            let cast = castArray[indexPath.row]
+            cell.characterNameLbl.text = cast.character
+            cell.actorNameLbl.text = cast.name
+            if cast.profilePath != "" {
+                cell.castImage.loadImage(imageUrl: cast.profilePath)
+            } else {
+                cell.castImage.image = UIImage(named: "user ")
+            }
+            
+            return cell
+        }
         return UICollectionViewCell()
-}
-
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {//size of your item for screen sizes
-//           let wsize = UIScreen.main.bounds.size.width
-//           switch(wsize){
-//           case 414:
-//               return CGSize(width: 110, height: 110)
-//           case 375:
-//               return CGSize(width: 100, height: 100)
-//           case 320:
-//               return CGSize(width: 90, height: 90)
-//           default:
-//               return CGSize(width: 100, height: 100)
-//           }
-//       }
-
-
-}
-
-extension FilmDetailViewController: FSPagerViewDataSource {
-    func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return minhasimagens.count
-    }
-    
-    func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
-        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
-        
-        
-        
-        cell.imageView?.image = UIImage(named: minhasimagens[index])
-        cell.textLabel?.text = "\(minhasimagens[index])"
-        return cell
     }
     
     
@@ -173,8 +155,22 @@ extension FilmDetailViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//extension FilmDetailViewController: UICollectionViewFlowLayout{
-//
-//    func
-//
-//}
+extension FilmDetailViewController: iCarouselDelegate, iCarouselDataSource{
+    
+    func numberOfItems(in carousel: iCarousel) -> Int {
+        return imgArr.count
+    }
+    
+    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
+        var imageView: UIImageView!
+        if view == nil{
+            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100 , height: UIScreen.main.bounds.height - 200))
+            imageView.contentMode = .scaleAspectFit
+        }else{
+            imageView = view as? UIImageView
+        }
+        
+        imageView.loadImage(imageUrl: imgArr[index].filePath)
+        return imageView
+    }
+}
