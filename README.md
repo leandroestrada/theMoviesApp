@@ -1,5 +1,5 @@
 # theMoviesApp
-An iOS app showing a list of the Top Rated Movies with their main info
+An iOS app in Swift showing a list of the Top Rated Movies with their main info
 
 Pods used: 
 - AlamofireObjectMapper;
