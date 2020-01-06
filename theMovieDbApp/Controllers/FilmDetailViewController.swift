@@ -138,7 +138,7 @@ extension FilmDetailViewController: UICollectionViewDataSource, UICollectionView
             if cast.profilePath != "" {
                 cell.castImage.loadImage(imageUrl: cast.profilePath)
             } else {
-                cell.castImage.image = UIImage(named: "user ")
+                cell.castImage.image = UIImage(named: "user")
             }
             
             return cell
