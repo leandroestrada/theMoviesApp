@@ -164,7 +164,7 @@ extension FilmDetailViewController: iCarouselDelegate, iCarouselDataSource{
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         var imageView: UIImageView!
         if view == nil{
-            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100 , height: UIScreen.main.bounds.height - 200))
+            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
             imageView.contentMode = .scaleAspectFit
         }else{
             imageView = view as? UIImageView
