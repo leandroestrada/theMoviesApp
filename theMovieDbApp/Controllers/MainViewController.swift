@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     func loadData(){
         NetworkManager.shared.fetchMoviesData(){  movieBase in
             self.movies = movieBase.results
-           // print(movieBase.results)
+            print(movieBase.results)
             self.moviesTableView.reloadData()
            
         }
