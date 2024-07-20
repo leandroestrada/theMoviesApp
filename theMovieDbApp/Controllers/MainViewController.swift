@@ -43,13 +43,13 @@ class MainViewController: UIViewController {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "FilmDetailSegue"{
-            if let nextViewController = segue.destination as? FilmDetailViewController {
-                nextViewController.theMovie = sender as? Movie //Or pass any values
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "FilmDetailSegue"{
+//            if let nextViewController = segue.destination as? FilmDetailViewController {
+//                nextViewController.theMovie = sender as? Movie //Or pass any values
+//            }
+//        }
+//    }
     
 }
 
